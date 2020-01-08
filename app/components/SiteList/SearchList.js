@@ -37,7 +37,7 @@ export default class SearchList extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.parentView}>
                 <TextInput style={styles.textInput}
                     placeholder="🔎 Association ..."
                     onChangeText={terms => this.onChangeSearchInput(terms)} />
@@ -53,6 +53,9 @@ export default class SearchList extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    parentView: {
+        flex: 1,
+    },
     textInput: {
         height: 40,
         fontSize: 18,
