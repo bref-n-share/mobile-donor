@@ -1,6 +1,5 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import CustomMarker from "./CustomMarker";
 
 export default class CustomMapView extends React.Component {
     constructor() {
