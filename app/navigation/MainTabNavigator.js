@@ -7,6 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavorisScreen from '../screens/FavorisScreen';
+import {SiteInfo} from "../components/SiteList/SiteInfo/SiteInfo";
 
 const config = Platform.select({
   web: { headerMode: 'screen' },

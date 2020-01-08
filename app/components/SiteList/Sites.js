@@ -4,8 +4,8 @@ import SearchList from './SearchList';
 import { View , Button, StyleSheet } from 'react-native';
 
 export default class Sites extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             isMapView: false,
