@@ -7,7 +7,7 @@ import ListView from "./List/ListView";
 const MapsRoutes = () => (
     <Router>
         <Scene key = "root">
-            <Scene key = "mapList" component = {CustomMapView} title = "Map List" initial = {true} />
+            <Scene key = "mapList" component = {CustomMapView} hideNavBar={true}  initial = {true} />
             <Scene key = "siteDetails" component = {SiteInfo} title = "Site details" />
         </Scene>
     </Router>
@@ -16,7 +16,7 @@ const MapsRoutes = () => (
 const ListRoutes = () => (
     <Router>
         <Scene key = "root">
-            <Scene key = "searchList" component = {ListView} title = "Search List" initial = {true} />
+            <Scene key = "searchList" component = {ListView} hideNavBar={true}  initial = {true} />
             <Scene key = "siteDetails" component = {SiteInfo} title = "Site details" />
         </Scene>
     </Router>

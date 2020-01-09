@@ -66,7 +66,7 @@ export default class ListView extends React.Component {
                           data={this.filteredSites()}
                           ItemSeparatorComponent={this.FlatListItemSeparator}
                           renderItem={({item}) => this.renderItem(item)}
-                          keyExtractor={item => item.id}/>
+                          keyExtractor={item => item.id.toString()}/>
             </View>
 
         )
@@ -76,10 +76,19 @@ export default class ListView extends React.Component {
 const styles = StyleSheet.create({
     parentView: {
         flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center'
     },
     textInput: {
         height: 40,
         fontSize: 18,
+        backgroundColor: '#fafafa',
+        borderRadius: 50,
+        width: '75%',
+        borderColor: '#969696',
+        borderStyle: 'solid',
+        borderWidth: 1
+
     },
     item: {
         fontSize: 18,
@@ -88,13 +97,13 @@ const styles = StyleSheet.create({
         flex: 3,
     },
     itemButton: {
-        height: 50,
-        width: 50,
-        flex:1,
+        padding: 10,
+        marginLeft: 5,
+        backgroundColor: 'transparent',
         borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'blue'
+        fontSize: 70
+    },
+    flatList: {
+        width: '100%'
     }
-
 });
