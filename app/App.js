@@ -11,7 +11,12 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import globalReducer from "./reducers";
 
+import ApiConsumer from './api/apiConsumer';
+import * as config from './config.json';
+
 const store = createStore(globalReducer);
+
+global.ApiConsumer = new ApiConsumer(config.api);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
