@@ -4,3 +4,4 @@ const globalReducer = combineReducers({
 });
 
 export default globalReducer;
+
