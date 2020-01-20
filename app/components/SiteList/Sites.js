@@ -28,9 +28,6 @@ export default class Sites extends React.Component {
                     {sites}
                 </View>
                 <View style={styles.buttonView}>
-                    {/*<Button title={buttonTitle}
-                            style={styles.button}
-                        onPress={() => this.toggleView()}/>*/}
                     <TouchableOpacity style={ styles.button } onPress={() => this.toggleView()}>
                         <Text>{buttonTitle}️</Text>
                     </TouchableOpacity>
