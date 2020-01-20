@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
+import {Ionicons} from "@expo/vector-icons";
 
 export default class Favoris extends React.Component {
     constructor() {
@@ -13,19 +14,34 @@ export default class Favoris extends React.Component {
     }
 
     render() {
+        let favorisIcon;
+        if (this.state.isFavoris){
+            favorisIcon = (<Ionicons
+                name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'}
+                size={26}
+                style={{marginBottom: -3}}
+                color={'rgb(32,32,32)'}
+            />)
+        }
+        else {
+            favorisIcon = (<Ionicons
+                name={Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline'}
+                size={26}
+                style={{marginBottom: -3}}
+                color={'rgb(32,32,32)'}
+            />)
+        }
         return (
             <View style={styles.parentView}>
-                <View style={styles.baseFavoris}>
-                    <View>
-                        <Image style={styles.iconView} source={require("../../assets/images/heart.png")} />
-                    </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Image style={styles.iconView} source={require("../../assets/images/heart.png")} />
                     <View>
                         <Text style={styles.titleView}>{this.props.title}</Text>
                         <Text style={styles.descView}>{this.props.text}</Text>
                     </View>
-                    <View>
-                        {/*TODO: Favoris button */}
-                    </View>
+                </View>
+                <View>
+                    {favorisIcon}
                 </View>
             </View>
         );
@@ -34,18 +50,14 @@ export default class Favoris extends React.Component {
 
 const styles = StyleSheet.create({
     parentView: {
+        padding: 10,
         flex: 1,
         borderWidth: 0.3,
         borderColor: '#969696',
-    },
-    baseFavoris: {
-        flexDirection: 'row'
-    },
-    demandView: {
-        flexDirection: 'row-reverse'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     iconView: {
-        margin: 10,
         width: 48,
         height: 48,
     },
