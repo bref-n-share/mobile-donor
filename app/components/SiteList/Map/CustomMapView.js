@@ -1,5 +1,6 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
+import {Actions} from "react-native-router-flux";
 
 export default class CustomMapView extends React.Component {
     constructor() {
@@ -13,6 +14,10 @@ export default class CustomMapView extends React.Component {
                     latitude: 45.750000,
                     longitude: 4.750000
                 },
+                site: {
+                    name: 'Emmaus',
+                    tel: '0987654321',
+                }
             },
                 {
                     title: 'hello 2',
@@ -21,8 +26,18 @@ export default class CustomMapView extends React.Component {
                         latitude: 45.750000,
                         longitude: 4.950000
                     },
+                    site: {
+                        name: 'Resto du Coeur',
+                        tel: '1234567890',
+                    }
                 }],
         };
+    }
+
+    showInfos(marker) {
+        Actions.siteDetails({
+            site: marker.site
+        });
     }
 
     render() {
@@ -43,8 +58,7 @@ export default class CustomMapView extends React.Component {
                 {children.map((marker, idx) => <Marker
                                         key={idx}
                                         coordinate={marker.coordinates}
-                                        title={marker.title}
-                                        description={marker.description}
+                                        onPress={() => this.showInfos(marker)}
                                         />
                 )}
             </MapView>

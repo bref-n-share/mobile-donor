@@ -7,6 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavorisScreen from '../screens/FavorisScreen';
+import {SiteInfo} from "../components/SiteList/SiteInfo/SiteInfo";
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -21,10 +22,11 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Accueil',
   tabBarIcon: ({ focused }) => (
       <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'} />
   ),
+    header: null
 };
 
 HomeStack.path = '';
@@ -37,7 +39,7 @@ const SearchStack = createStackNavigator(
 );
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Search',
+  tabBarLabel: 'Rechercher',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
   ),

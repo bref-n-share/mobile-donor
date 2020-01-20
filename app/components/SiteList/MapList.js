@@ -1,6 +1,8 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import CustomMapView from './Map/CustomMapView';
+import {View} from "react-native-web";
+import {MapsRoutes} from "./Router";
 
 const styles = StyleSheet.create({
     map: {
@@ -8,10 +10,10 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class MapList extends React.Component {
+export default class MapList extends React.Component {
     render() {
         return (
-            <CustomMapView />
+            <MapsRoutes/>
         )
     }
 }

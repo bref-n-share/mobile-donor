@@ -1,11 +1,11 @@
 import React from "react";
 import MapList from './MapList';
 import SearchList from './SearchList';
-import { View , Button, StyleSheet } from 'react-native';
+import {View, Button, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 export default class Sites extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             isMapView: false,
@@ -28,8 +28,9 @@ export default class Sites extends React.Component {
                     {sites}
                 </View>
                 <View style={styles.buttonView}>
-                    <Button title={buttonTitle}
-                        onPress={() => this.toggleView()}/>
+                    <TouchableOpacity style={ styles.button } onPress={() => this.toggleView()}>
+                        <Text>{buttonTitle}️</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -58,4 +59,10 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 1.0
     },
+    button: {
+        padding: 20,
+        backgroundColor: 'blue',
+        borderRadius: 50,
+        fontSize: 70
+    }
 });
