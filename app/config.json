@@ -1,0 +1,6 @@
+{
+  "api": {
+    "address": "https://api-dot-bref-n-share.appspot.com",
+    "defaultUri": "/api/v1"
+  }
+}

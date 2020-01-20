@@ -2,25 +2,26 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import TabBarIcon from '../components/TabBarIcon';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavorisScreen from '../screens/FavorisScreen';
-import {SiteInfo} from "../components/SiteList/SiteInfo/SiteInfo";
+import DrawerScreen from '../screens/DrawerScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {},
+  default: { headerMode: 'none' },
 });
 
+// HOME
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
   },
   config
 );
-
 HomeStack.navigationOptions = {
   tabBarLabel: 'Accueil',
   tabBarIcon: ({ focused }) => (
@@ -28,47 +29,64 @@ HomeStack.navigationOptions = {
   ),
     header: null
 };
-
 HomeStack.path = '';
 
+// SEARCH
 const SearchStack = createStackNavigator(
   {
     Search: SearchScreen,
   },
   config
 );
-
 SearchStack.navigationOptions = {
   tabBarLabel: 'Rechercher',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
   ),
 };
-
 SearchStack.path = '';
 
+// FAVORIS
 const FavorisStack = createStackNavigator(
   {
     Favoris: FavorisScreen,
   },
   config
 );
-
 FavorisStack.navigationOptions = {
   tabBarLabel: 'Favoris',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} />
   ),
 };
-
 FavorisStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
+const bottomTabNavigator = createBottomTabNavigator({
     SearchStack,
     HomeStack,
     FavorisStack,
 });
+bottomTabNavigator.path = '';
 
-tabNavigator.path = '';
+const drawerNavigator = createDrawerNavigator(
+    {
+        Home: bottomTabNavigator
+    },
+    {
+        initialRouteName: 'Home',
+        contentComponent: DrawerScreen,
+        navigationOptions: ({navigation}) => ({
+          headerStyle: {backgroundColor: '#9c915c'},
+          title: 'Bref\'n\'Share',
+          headerTintColor: '#fff',
+        }),
+    }
+);
 
-export default tabNavigator;
+const mainNavigator = createStackNavigator({
+  Home:  drawerNavigator
+}, {
+  headerMode: 'float',
+});
+
+export default mainNavigator;
