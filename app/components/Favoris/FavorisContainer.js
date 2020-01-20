@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView, TouchableOpacity, View } from 'react-native';
-import Post from "../Home/Post";
+import { StyleSheet, ScrollView} from 'react-native';
 import Favoris from "./Favoris";
 
 export default class FavorisContainer extends React.Component{
