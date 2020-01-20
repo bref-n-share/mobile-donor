@@ -1,6 +1,7 @@
 import React from "react";
-import {Text, TextInput, View, FlatList, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {TextInput, View, StyleSheet, ScrollView} from 'react-native';
 import {Actions} from "react-native-router-flux";
+import SiteElement from "./SiteElement";
 
 export default class ListView extends React.Component {
     constructor(props) {
@@ -9,12 +10,9 @@ export default class ListView extends React.Component {
         let sites = [];
         for (let i = 1; i <= 25; i++) {
             sites.push({
-                id: i,
-                text: 'Item  n°' + i,
-                site: {
-                    name: 'Association n°' + i,
-                    tel: '1234567890',
-                }
+                name: 'Association n°' + i,
+                tel: '1234567890',
+                isFavoris: true
             });
         }
 
@@ -34,39 +32,26 @@ export default class ListView extends React.Component {
         if (!this.state.searchTerms) {
             return this.state.sites;
         }
-
-        return this.state.sites.filter(site => site.text.includes(this.state.searchTerms));
+        return this.state.sites.filter(site => site.name.includes(this.state.searchTerms));
     }
 
-    FlatListItemSeparator = () => (<View style={{height: 0.5, width: '100%', backgroundColor: '#C8C8C8'}}/>);
-
-    showInfos(item) {
-        Actions.siteDetails({site: item.site});
-    }
-
-    renderItem(item) {
-        return (
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity style={ styles.itemButton } onPress={null}>
-                    <Text>❤️</Text>
-                </TouchableOpacity>
-                <Text onPress={() => this.showInfos(item)} style={styles.item}>{item.text}</Text>
-            </View>
-        )
+    showInfos(site) {
+        console.log("-------____  PRESSED  ____-------")
+        Actions.siteDetails({site: site});
     }
 
     render() {
+        let filteredSites = this.filteredSites();
         return (
-            <View style={styles.parentView}>
+            <View>
                 <TextInput style={styles.textInput}
                            placeholder="🔎 Association ..."
                            onChangeText={terms => this.onChangeSearchInput(terms)}/>
-
-                <FlatList style={styles.flatList}
-                          data={this.filteredSites()}
-                          ItemSeparatorComponent={this.FlatListItemSeparator}
-                          renderItem={({item}) => this.renderItem(item)}
-                          keyExtractor={item => item.id.toString()}/>
+                <ScrollView
+                    style={styles.container}
+                    contentContainerStyle={styles.contentContainer}>
+                    {filteredSites.map((site, idx) => <SiteElement title={site.name} isFavoris={site.isFavoris} key={idx} pressFunction={() => this.showInfos(site)}/>)}
+                </ScrollView>
             </View>
 
         )
@@ -74,11 +59,6 @@ export default class ListView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    parentView: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center'
-    },
     textInput: {
         height: 40,
         fontSize: 18,
@@ -87,23 +67,9 @@ const styles = StyleSheet.create({
         width: '75%',
         borderColor: '#969696',
         borderStyle: 'solid',
-        borderWidth: 1
+        borderWidth: 1,
+        alignSelf: 'center',
+        flexDirection: 'row',
 
     },
-    item: {
-        fontSize: 18,
-        marginBottom: 5,
-        padding: 20,
-        flex: 3,
-    },
-    itemButton: {
-        padding: 10,
-        marginLeft: 5,
-        backgroundColor: 'transparent',
-        borderRadius: 50,
-        fontSize: 70
-    },
-    flatList: {
-        width: '100%'
-    }
 });

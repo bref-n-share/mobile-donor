@@ -1,5 +1,4 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import FavorisContainer from "../components/Favoris/FavorisContainer";
 
 export default function FavorisScreen() {

@@ -33,9 +33,9 @@ export default class Favoris extends React.Component {
         }
         return (
             <View style={styles.parentView}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={styles.baseFavoris}>
                     <Image style={styles.iconView} source={require("../../assets/images/heart.png")} />
-                    <View>
+                    <View style={{padding: 10}}>
                         <Text style={styles.titleView}>{this.props.title}</Text>
                         <Text style={styles.descView}>{this.props.text}</Text>
                     </View>
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
         borderColor: '#969696',
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    baseFavoris: {
+        flexDirection: 'row',
     },
     iconView: {
         width: 48,

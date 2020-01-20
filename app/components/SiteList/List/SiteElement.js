@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
+import TouchableWithoutFeedback from "react-native-web/dist/exports/TouchableWithoutFeedback";
 
-export default class AssociationElement extends React.Component {
+export default class SiteElement extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -10,6 +11,7 @@ export default class AssociationElement extends React.Component {
             title: "info 1",
             text: "info 1 text",
             isFavoris:true,
+            pressFunction:null,
         };
     }
 
@@ -33,10 +35,12 @@ export default class AssociationElement extends React.Component {
         }
         return (
             <View style={styles.parentView}>
-                <View style={styles.baseFavoris}>
-                    <Image style={styles.iconView} source={require("../../assets/images/heart.png")} />
-                    <Text style={styles.titleView}>{this.props.title}</Text>
-                </View>
+                <TouchableWithoutFeedback style={styles.baseSite} onPress={this.props.pressFunction}>
+                    <View style={{flexDirection:'row'}}>
+                        <Image style={styles.iconView} source={require("../../../assets/images/heart.png")} />
+                        <Text style={styles.titleView}>{this.props.title}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View>
                     {favorisIcon}
                 </View>
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    baseFavoris: {
+    baseSite: {
         flexDirection: 'row',
     },
     iconView: {
@@ -66,9 +70,5 @@ const styles = StyleSheet.create({
         padding: 10,
         color: 'rgb(7,54,109)',
         lineHeight: 24,
-    },
-    descView: {
-        fontSize: 12,
-        color: 'rgb(32,32,32)',
     },
 });
