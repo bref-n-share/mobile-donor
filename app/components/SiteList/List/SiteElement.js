@@ -6,11 +6,8 @@ import TouchableWithoutFeedback from "react-native-web/dist/exports/TouchableWit
 export default class SiteElement extends React.Component {
     constructor() {
         super();
+        //TODO: Transformer les longitudes et latitudes en float (string --> float)
         this.state = {
-            image: "../../assets/images/icon.png",
-            title: "info 1",
-            text: "info 1 text",
-            isFavoris:true,
             pressFunction:null,
         };
     }
@@ -38,7 +35,7 @@ export default class SiteElement extends React.Component {
                 <TouchableWithoutFeedback style={styles.baseSite} onPress={this.props.pressFunction}>
                     <View style={{flexDirection:'row'}}>
                         <Image style={styles.iconView} source={require("../../../assets/images/heart.png")} />
-                        <Text style={styles.titleView}>{this.props.title}</Text>
+                        <Text style={styles.titleView}>{this.props.site.name}</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <View>
