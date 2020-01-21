@@ -1,7 +1,7 @@
 import React from "react";
 import MapList from './MapList';
 import SearchList from './SearchList';
-import {View, Button, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 export default class Sites extends React.Component {
     constructor(props) {
@@ -21,7 +21,6 @@ export default class Sites extends React.Component {
     render() {
         let sites = this.state.isMapView ? <MapList /> : <SearchList />;
         let buttonTitle = !this.state.isMapView ? '🗺' : '🏢';
-
         return (
             <View style={styles.parentView}>
                 <View style={styles.listView}>

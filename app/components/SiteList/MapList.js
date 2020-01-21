@@ -1,7 +1,5 @@
 import React from "react";
 import {StyleSheet} from 'react-native';
-import CustomMapView from './Map/CustomMapView';
-import {View} from "react-native-web";
 import {MapsRoutes} from "./Router";
 
 const styles = StyleSheet.create({
