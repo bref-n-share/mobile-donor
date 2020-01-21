@@ -11,12 +11,20 @@ export default class ListView extends React.Component {
         for (let i = 1; i <= 25; i++) {
             sites.push({
                 name: 'Association n°' + i,
+                description: "Description de l'association " + i,
+                id: "a2172105-91b0-4f84-88a5-a6225424392" + i,
+                address: "50 rue de Mon adresse bidon",
+                postalCode: "69008",
+                city: "Lyon",
+                phone: "0678828728",
                 tel: '1234567890',
-                isFavoris: true
+                isFavoris: true,
+                longitude: 4.050000 + i / 10,
+                latitude: 45.750000,
             });
         }
 
-        this.state = {
+        this.state ={
             sites: sites,
             searchTerms: '',
         };
@@ -49,7 +57,7 @@ export default class ListView extends React.Component {
                 <ScrollView
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}>
-                    {filteredSites.map((site, idx) => <SiteElement title={site.name} isFavoris={site.isFavoris} key={idx} pressFunction={() => this.showInfos(site)}/>)}
+                    {filteredSites.map((site, idx) => <SiteElement site={site} key={idx} pressFunction={() => this.showInfos(site)}/>)}
                 </ScrollView>
             </View>
 

@@ -5,43 +5,35 @@ import {Actions} from "react-native-router-flux";
 export default class CustomMapView extends React.Component {
     constructor() {
         super();
+        let sites = [];
+        for (let i = 1; i <= 25; i++) {
+            sites.push({
+                name: 'Association n°' + i,
+                description: "Description de l'association " + i,
+                id: "a2172105-91b0-4f84-88a5-a6225424392" + i,
+                address: "50 rue de Mon adresse bidon",
+                postalCode: "69008",
+                city: "Lyon",
+                phone: "0678828728",
+                tel: '1234567890',
+                isFavoris: true,
+                longitude: 4.050000 + i / 10,
+                latitude: 45.750000,
+            });
+        }
         this.state = {
-            //TODO: Récupérer les marqueurs
-            markers: [{
-                title: 'hello',
-                description:'test description',
-                coordinates: {
-                    latitude: 45.750000,
-                    longitude: 4.750000
-                },
-                site: {
-                    name: 'Emmaus',
-                    tel: '0987654321',
-                }
-            },
-                {
-                    title: 'hello 2',
-                    description:'test description 2',
-                    coordinates: {
-                        latitude: 45.750000,
-                        longitude: 4.950000
-                    },
-                    site: {
-                        name: 'Resto du Coeur',
-                        tel: '1234567890',
-                    }
-                }],
+            sites: sites,
         };
     }
 
-    showInfos(marker) {
+    showInfos(site) {
         Actions.siteDetails({
-            site: marker.site
+            site: site
         });
     }
 
     render() {
-        const children = [...this.state.markers];
+        const children = [...this.state.sites];
         return (
             <MapView
                 style = {{ flex: 1 }}
@@ -55,10 +47,10 @@ export default class CustomMapView extends React.Component {
                     longitudeDelta: 0.0421,
                 }}
             >
-                {children.map((marker, idx) => <Marker
+                {children.map((site, idx) => <Marker
                                         key={idx}
-                                        coordinate={marker.coordinates}
-                                        onPress={() => this.showInfos(marker)}
+                                        coordinate={{longitude: site.longitude, latitude: site.latitude,}}
+                                        onPress={() => this.showInfos(site)}
                                         />
                 )}
             </MapView>
