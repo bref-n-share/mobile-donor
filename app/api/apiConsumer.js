@@ -5,11 +5,18 @@ class ApiConsumer {
   }
 
   async _fetch({url, method, data}) {
-    const response = await fetch(`${this.baseURL}${url}`, {
+    let init = {
       method: method.toUpperCase(),
-      headers: this.headers,
-      body: JSON.stringify(data),
-    });
+      headers: {
+        'X-AUTH-TOKEN': '58c04798-854e-4216-a301-ba73f8964d87'
+      },
+    };
+
+    if (data) {
+      init['body'] = JSON.stringify(data);
+    }
+
+    const response = await fetch(`${this.baseURL}${url}`, init);
 
     let responseData = {};
     try {
@@ -23,7 +30,7 @@ class ApiConsumer {
   }
 
   async authenticate({email, password}) {
-    const response = this._fetch({
+    const response = await this._fetch({
       method: 'post',
       url: '/security/authenticate',
       data: {
@@ -33,7 +40,7 @@ class ApiConsumer {
     });
 
     if (response.status === 200) {
-      this.token = response.data.token;
+      this.headers['X-AUTH-TOKEN'] = response.data.token;
     }
 
     return response;
@@ -55,7 +62,7 @@ class ApiConsumer {
   }
 
   async register({email, password, firstName, lastName}) {
-    const response = this._fetch({
+    return await this._fetch({
       method: 'post',
       url: '/user/donor',
       data: {
@@ -65,8 +72,13 @@ class ApiConsumer {
         lastName: lastName,
       },
     });
+  }
 
-    return response;
+  async loadSites() {
+    return await this._fetch({
+      method: 'get',
+      url: '/structure/site',
+    });
   }
 }
 

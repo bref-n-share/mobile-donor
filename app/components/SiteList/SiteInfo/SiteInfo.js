@@ -3,10 +3,6 @@ import {View, Text, StyleSheet, Platform, Image} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
 export class SiteInfo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let favorisIcon;
         if (this.props.site.isFavoris){

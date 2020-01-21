@@ -2,14 +2,23 @@ import React from "react";
 import MapList from './MapList';
 import SearchList from './SearchList';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { sitesAll } from '../../actions/sites';
+import { connect } from 'react-redux';
 
-export default class Sites extends React.Component {
+class Sites extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isMapView: false,
         };
+
+        this.loadSites();
+    }
+
+    async loadSites() {
+        const response = await global.ApiConsumer.loadSites();
+        this.props.dispatch(sitesAll(response.data));
     }
 
     toggleView() {
@@ -65,3 +74,5 @@ const styles = StyleSheet.create({
         fontSize: 70
     }
 });
+
+export default connect()(Sites);

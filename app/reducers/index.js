@@ -1,17 +1,8 @@
 import { combineReducers } from 'redux';
-
-// FIXME: remove
-const connectedUsersReducer = (state={}, action) => {
-  switch (action.type) {
-    case 'CHAT_UPDATE_CONNECTED_USERS':
-      return {users: action.obj};
-    default:
-      return state;
-  }
-}
+import sitesReducer from './sitesReducer';
 
 const globalReducer = combineReducers({
-  connectedUsersReducer: connectedUsersReducer,
+  sitesReducer: sitesReducer,
 });
 
 export default globalReducer;

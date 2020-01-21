@@ -1,39 +1,21 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {Actions} from "react-native-router-flux";
+import { connect } from 'react-redux';
 
-export default class CustomMapView extends React.Component {
-    constructor() {
-        super();
-        let sites = [];
-        for (let i = 1; i <= 25; i++) {
-            sites.push({
-                name: 'Association n°' + i,
-                description: "Description de l'association " + i,
-                id: "a2172105-91b0-4f84-88a5-a6225424392" + i,
-                address: "50 rue de Mon adresse bidon",
-                postalCode: "69008",
-                city: "Lyon",
-                phone: "0678828728",
-                tel: '1234567890',
-                isFavoris: true,
-                longitude: 4.050000 + i / 10,
-                latitude: 45.750000,
-            });
-        }
-        this.state = {
-            sites: sites,
-        };
-    }
-
-    showInfos(site) {
+class CustomMapView extends React.Component {
+    showInfos(marker) {
         Actions.siteDetails({
-            site: site
+            site: marker
         });
     }
 
     render() {
-        const children = [...this.state.sites];
+        let markers = [];
+        if (this.props.sites) {
+            markers = this.props.sites;
+        }
+
         return (
             <MapView
                 style = {{ flex: 1 }}
@@ -45,11 +27,11 @@ export default class CustomMapView extends React.Component {
                     longitude: 4.850000,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
-                }}
-            >
-                {children.map((site, idx) => <Marker
+                }}>
+
+                {markers.map((site, idx) => <Marker
                                         key={idx}
-                                        coordinate={{longitude: site.longitude, latitude: site.latitude,}}
+                                        coordinate={{longitude: site.longitude, latitude: site.latitude}}
                                         onPress={() => this.showInfos(site)}
                                         />
                 )}
@@ -58,3 +40,10 @@ export default class CustomMapView extends React.Component {
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        sites: state.sitesReducer.sites,
+    }
+};
+
+export default connect(mapStateToProps)(CustomMapView);

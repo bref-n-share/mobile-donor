@@ -15,10 +15,11 @@ const MapsRoutes = () => (
 
 const ListRoutes = () => (
     <Router>
-        <Scene key = "root">
-            <Scene key = "searchList" component = {ListView} hideNavBar={true}  initial = {true} />
-            <Scene key = "siteDetails" component = {SiteInfo} title = "Site details" />
-        </Scene>
+            <Scene key = "root">
+                <Scene key = "searchList" component = {ListView} hideNavBar={true} initial = {true} />
+                <Scene key = "siteDetails" component = {SiteInfo} title = "Site details" />
+
+            </Scene>
     </Router>
 );
 
