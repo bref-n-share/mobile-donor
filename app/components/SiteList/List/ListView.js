@@ -1,31 +1,14 @@
 import React from "react";
-import {TextInput, View, StyleSheet, ScrollView} from 'react-native';
+import {TextInput, View, StyleSheet, ScrollView, Text} from 'react-native';
 import {Actions} from "react-native-router-flux";
 import SiteElement from "./SiteElement";
+import { connect } from 'react-redux';
 
-export default class ListView extends React.Component {
+class ListView extends React.Component {
     constructor(props) {
         super(props);
 
-        let sites = [];
-        for (let i = 1; i <= 25; i++) {
-            sites.push({
-                name: 'Association n°' + i,
-                description: "Description de l'association " + i,
-                id: "a2172105-91b0-4f84-88a5-a6225424392" + i,
-                address: "50 rue de Mon adresse bidon",
-                postalCode: "69008",
-                city: "Lyon",
-                phone: "0678828728",
-                tel: '1234567890',
-                isFavoris: true,
-                longitude: 4.050000 + i / 10,
-                latitude: 45.750000,
-            });
-        }
-
-        this.state ={
-            sites: sites,
+        this.state = {
             searchTerms: '',
         };
     }
@@ -38,27 +21,47 @@ export default class ListView extends React.Component {
 
     filteredSites() {
         if (!this.state.searchTerms) {
-            return this.state.sites;
+            return this.props.sites;
         }
-        return this.state.sites.filter(site => site.name.includes(this.state.searchTerms));
+
+        return this.props.sites.filter(site => site.text.includes(this.state.searchTerms));
     }
 
-    showInfos(site) {
-        Actions.siteDetails({site: site});
+    FlatListItemSeparator = () => (<View style={{height: 0.5, width: '100%', backgroundColor: '#C8C8C8'}}/>);
+
+    showInfos(item) {
+        Actions.jump('siteDetails', {site: item});
+    }
+
+    renderItem(item) {
+        return (
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                <TouchableOpacity style={ styles.itemButton } onPress={null}>
+                    <Text>❤️</Text>
+                </TouchableOpacity>
+                <Text onPress={() => this.showInfos(item)} style={styles.item}>{item.name}</Text>
+            </View>
+        )
     }
 
     render() {
-        let filteredSites = this.filteredSites();
+        let sites = <Text>No sites to show</Text>;
+        if (this.props.sites) {
+            sites =
+                <ScrollView
+                    style={styles.container}
+                    contentContainerStyle={styles.contentContainer}>
+                    {this.filteredSites().map((site, idx) => <SiteElement site={site} key={idx} pressFunction={() => this.showInfos(site)}/>)}
+                </ScrollView>;
+        }
+
         return (
             <View>
                 <TextInput style={styles.textInput}
                            placeholder="🔎 Association ..."
                            onChangeText={terms => this.onChangeSearchInput(terms)}/>
-                <ScrollView
-                    style={styles.container}
-                    contentContainerStyle={styles.contentContainer}>
-                    {filteredSites.map((site, idx) => <SiteElement site={site} key={idx} pressFunction={() => this.showInfos(site)}/>)}
-                </ScrollView>
+
+                {sites}
             </View>
 
         )
@@ -77,6 +80,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         alignSelf: 'center',
         flexDirection: 'row',
-
+        marginVertical: 10,
+        paddingHorizontal: 10
     },
 });
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        sites: state.sitesReducer.sites,
+    }
+};
+
+export default connect(mapStateToProps)(ListView);
