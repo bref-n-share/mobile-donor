@@ -36,7 +36,6 @@ export default class ListView extends React.Component {
     }
 
     showInfos(site) {
-        console.log("-------____  PRESSED  ____-------")
         Actions.siteDetails({site: site});
     }
 
