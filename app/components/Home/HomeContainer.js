@@ -9,44 +9,25 @@ export default class HomeContainer extends React.Component{
         super();
         this.state = {
 
-            infos: [
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 1",
-                    text: "info 1 text",
-                    isDemand:false,
-                    counter:0,
-                },
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 2",
-                    text: "info 2 text",
-                    isDemand:false,
-                    counter:0,
-                },
-            ],
-            demands: [
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "demande 1",
-                    text: "demande 1 text",
-                    isDemand:false,
-                    counter:0,
-                },
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "demande 2",
-                    text: "demande 2 text",
-                    isDemand:false,
-                    counter:0,
-                },
-            ],
+            infos: [],
+            demands: [],
             index: 0,
             routes: [
                 { key: 'first', title: 'Demandes' },
                 { key: 'second', title: 'Informations' },
             ],
         };
+        this.loadDemands();
+        this.loadInfos();
+    }
+
+    async loadDemands() {
+        this.props.demands = await global.ApiConsumer.loadDemands();
+
+    }
+
+    async loadInfos() {
+        this.props.infos = await global.ApiConsumer.loadInfos();
     }
 
     _handleIndexChange = index => this.setState({ index });

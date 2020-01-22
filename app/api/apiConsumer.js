@@ -97,6 +97,20 @@ class ApiConsumer {
       },
     });
   }
+
+  async loadDemands() {
+    return await this._fetch({
+      method: 'get',
+      url: '/post/request?channels=gos',
+    });
+  }
+
+  async loadInfos() {
+    return await this._fetch({
+      method: 'get',
+      url: '/post/information?channels=gos',
+    });
+  }
 }
 
 export default ApiConsumer;
