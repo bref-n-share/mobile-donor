@@ -7,9 +7,7 @@ class ApiConsumer {
   async _fetch({url, method, data}) {
     let init = {
       method: method.toUpperCase(),
-      headers: {
-        'X-AUTH-TOKEN': '58c04798-854e-4216-a301-ba73f8964d87'
-      },
+      headers: this.headers,
     };
 
     if (data) {
@@ -79,6 +77,13 @@ class ApiConsumer {
       method: 'get',
       url: '/structure/site',
     });
+  }
+
+  async getNotifs() {
+    return await this._fetch({
+      method: 'get',
+      url: '/notification'
+    })
   }
 }
 
