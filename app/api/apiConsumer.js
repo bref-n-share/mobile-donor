@@ -7,9 +7,7 @@ class ApiConsumer {
   async _fetch({url, method, data}) {
     let init = {
       method: method.toUpperCase(),
-      headers: {
-        'X-AUTH-TOKEN': '58c04798-854e-4216-a301-ba73f8964d87'
-      },
+      headers: this.headers,
     };
 
     if (data) {
@@ -78,6 +76,25 @@ class ApiConsumer {
     return await this._fetch({
       method: 'get',
       url: '/structure/site',
+    });
+  }
+
+  async loadFavoriteSites() {
+    return  await this._fetch({
+      method: 'get',
+      url: '/structure/favorite',
+    });
+  }
+
+  async siteToggleFavorite({site, value}) {
+    let action = value ? 'add' : 'remove';
+
+    return await this._fetch({
+      method: 'post',
+      url: `/user/donor/favorite/${action}`,
+      data: {
+        id: site,
+      },
     });
   }
 }

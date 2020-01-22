@@ -2,7 +2,7 @@ import React from "react";
 import MapList from './MapList';
 import SearchList from './SearchList';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import { sitesAll } from '../../actions/sites';
+import { sitesAll, sitesFavorite } from '../../actions/sites';
 import { connect } from 'react-redux';
 
 class Sites extends React.Component {
@@ -17,8 +17,11 @@ class Sites extends React.Component {
     }
 
     async loadSites() {
-        const response = await global.ApiConsumer.loadSites();
+        let response = await global.ApiConsumer.loadSites();
         this.props.dispatch(sitesAll(response.data));
+
+        response = await global.ApiConsumer.loadFavoriteSites();
+        this.props.dispatch(sitesFavorite(response.data));
     }
 
     toggleView() {
@@ -69,7 +72,6 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 20,
-        backgroundColor: 'blue',
         borderRadius: 50,
         fontSize: 70
     }
