@@ -84,6 +84,7 @@ class ApiConsumer {
       method: 'get',
       url: '/notification'
     })
+  }
 
   async loadFavoriteSites() {
     return  await this._fetch({
