@@ -101,14 +101,14 @@ class ApiConsumer {
   async loadDemands() {
     return await this._fetch({
       method: 'get',
-      url: '/post/request?channels=gos',
+      url: '/post/request',
     });
   }
 
   async loadInfos() {
     return await this._fetch({
       method: 'get',
-      url: '/post/information?channels=gos',
+      url: '/post/information',
     });
   }
 }

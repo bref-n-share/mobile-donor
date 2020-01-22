@@ -8,9 +8,8 @@ export default class HomeContainer extends React.Component{
     constructor() {
         super();
         this.state = {
-
-            infos: [],
             demands: [],
+            infos: [],
             index: 0,
             routes: [
                 { key: 'first', title: 'Demandes' },
@@ -22,12 +21,14 @@ export default class HomeContainer extends React.Component{
     }
 
     async loadDemands() {
-        this.props.demands = await global.ApiConsumer.loadDemands();
+        let demands = await global.ApiConsumer.loadDemands();
+        this.setState({demands:demands.data});
 
     }
 
     async loadInfos() {
-        this.props.infos = await global.ApiConsumer.loadInfos();
+        let infos = await global.ApiConsumer.loadInfos();
+        this.setState({infos:infos.data});
     }
 
     _handleIndexChange = index => this.setState({ index });
@@ -73,20 +74,20 @@ export default class HomeContainer extends React.Component{
     };
 
     render() {
-
+        let demands = this.state.demands;
         let DemandsRoute = () => (
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {this.state.demands.map((demand, idx) => <Post title={demand.title} text={demand.text} isDemand={true} key={idx}/>)}
+                {demands.map((demand, idx) => <Post title={demand.title} text={demand.description} isDemand={true} key={idx}/>)}
             </ScrollView>
         );
-
+        let infos = this.state.infos;
         let InfosRoute = () => (
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {this.state.infos.map((info, idx) => <Post title={info.title} text={info.text} isDemand={false} key={idx}/>)}
+                {infos.map((info, idx) => <Post title={info.title} text={info.description} isDemand={false} key={idx}/>)}
             </ScrollView>
         );
 
