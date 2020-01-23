@@ -22,7 +22,7 @@ class NotifComponent extends Component {
             if ('request' == this.props.notif.post.type)  {
                 extra = (
                     <View>
-                        <Post isDemand={true} id={this.props.notif.post.id} />
+                        <Post type={this.props.notif.post.type} id={this.props.notif.post.id} />
                     </View>
                 );
             }
