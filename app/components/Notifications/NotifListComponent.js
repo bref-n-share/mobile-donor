@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import { View, Text } from 'react-native';
 import {connect} from 'react-redux';
 import NotifComponent from "./NotifComponent";
-import { withNavigation } from 'react-navigation';
+import { withNavigation, ScrollView } from 'react-navigation';
 
 class NotifListComponent extends Component {
-
     constructor(props) {
         super(props);
         this.loadNotifs();
@@ -31,9 +29,9 @@ class NotifListComponent extends Component {
             return (<NotifComponent key={idx} notif={n}/>)
         });
         return (
-            <View>
+            <ScrollView>
                 {list}
-            </View>
+            </ScrollView>
         );
     }
 
