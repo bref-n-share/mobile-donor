@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import {  ScrollView, Text } from 'react-native';
 import SiteElement from '../SiteList/List/SiteElement';
 import { connect } from 'react-redux';
 import { sitesAll, sitesFavorite } from '../../actions/sites';
+import {Actions} from "react-native-router-flux";
 
 class FavorisContainer extends React.Component{
     constructor(props) {
@@ -27,6 +28,10 @@ class FavorisContainer extends React.Component{
         return this.props.sites.filter(site => site.isFavoris);
     }
 
+    showInfos(item) {
+        Actions.jump('siteDetails', {site: item});
+    }
+
     render() {
         if (!this.props.sites) {
             return <Text>No sites to show</Text>;
@@ -34,7 +39,7 @@ class FavorisContainer extends React.Component{
 
         return (
             <ScrollView>
-                {this.filteredSites().map((site, idx) => <SiteElement site={site} key={idx} />)}
+                {this.filteredSites().map((site, idx) => <SiteElement site={site} key={idx} pressFunction={() => this.showInfos(site)} />)}
             </ScrollView>
         );
     }

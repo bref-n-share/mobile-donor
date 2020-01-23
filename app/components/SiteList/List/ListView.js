@@ -33,17 +33,6 @@ class ListView extends React.Component {
         Actions.jump('siteDetails', {site: item});
     }
 
-    renderItem(item) {
-        return (
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity style={ styles.itemButton } onPress={null}>
-                    <Text>❤️</Text>
-                </TouchableOpacity>
-                <Text onPress={() => this.showInfos(item)} style={styles.item}>{item.name}</Text>
-            </View>
-        )
-    }
-
     render() {
         let sites = <Text>No sites to show</Text>;
 
