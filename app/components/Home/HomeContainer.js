@@ -84,7 +84,6 @@ class HomeContainer extends React.Component{
 
     render() {
         let demands = this.state.demands;
-        console.log(demands);
         let DemandsRoute = () => (
             <ScrollView
                 style={styles.container}

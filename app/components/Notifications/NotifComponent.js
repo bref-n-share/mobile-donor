@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {TextInput, View, StyleSheet, ScrollView, Text} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
+import Post from '../Home/Post';
 
 class NotifComponent extends Component {
 
@@ -16,10 +17,21 @@ class NotifComponent extends Component {
                 </View>
             );
         }
-        else if ('post' == this.props.notif.type) {
+        else if ('postNotification' == this.props.notif.type) {
+            let extra = null;
+            if ('request' == this.props.notif.post.type)  {
+                extra = (
+                    <View>
+                        <Post isDemand={true} id={this.props.notif.post.id} />
+                    </View>
+                );
+            }
+
             return (
                 <View style={styles.parentView}>
-
+                    <Text style={styles.title}>{this.props.notif.title} - 🏢 {this.props.notif.site.name}</Text>
+                    <Text style={styles.description}>{this.props.notif.description}</Text>
+                    {extra}
                 </View>
             );
         }
@@ -46,7 +58,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 12
-    }
+    },
 });
 
 export default NotifComponent;
