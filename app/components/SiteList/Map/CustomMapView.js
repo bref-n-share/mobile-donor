@@ -16,6 +16,12 @@ class CustomMapView extends React.Component {
             markers = this.props.sites;
         }
 
+        markers.map((site, idx) => {
+            site.latitude = parseFloat(site.latitude);
+            site.longitude = parseFloat(site.longitude);
+            return site;
+        });
+
         return (
             <MapView
                 style = {{ flex: 1 }}
