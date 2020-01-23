@@ -1,20 +1,35 @@
 import React, {Component} from 'react';
 import {TextInput, View, StyleSheet, ScrollView, Text} from 'react-native';
 
-
-export default class NotifComponent extends Component {
+class NotifComponent extends Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
-        return (
-            <View style={styles.parentView}>
-                <Text style={styles.title}>{this.props.notif.title}</Text>
-                <Text style={styles.description}>{this.props.notif.description}</Text>
-            </View>
-        )
+        if ('simpleNotification' == this.props.notif.type) {
+            return (
+                <View style={styles.parentView}>
+                    <Text style={styles.title}>{this.props.notif.title} - 🏢 {this.props.notif.site.name}</Text>
+                    <Text style={styles.description}>{this.props.notif.description}</Text>
+                </View>
+            );
+        }
+        else if ('post' == this.props.notif.type) {
+            return (
+                <View style={styles.parentView}>
+
+                </View>
+            );
+        }
+        else {
+            return (
+                <View style={styles.parentView}>
+                    <Text>Can't show notification</Text>
+                </View>
+            );
+        }
     }
 }
 
@@ -33,3 +48,5 @@ const styles = StyleSheet.create({
         fontSize: 12
     }
 });
+
+export default NotifComponent;

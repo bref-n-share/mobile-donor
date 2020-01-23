@@ -7,21 +7,8 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SignInScreen from '../screens/SignInScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 
-import NotifListComponent from "../components/Notifications/NotifListComponent";
-import {View, Text, StyleSheet, Button} from "react-native";
-
-
 const AuthNavigator = createStackNavigator({SignIn: SignInScreen, Register: RegisterScreen});
-const NotifNavigator = createStackNavigator({
-    List: {
-        screen: NotifListComponent,
-        title: 'Vos notifications',
-        navigationOptions: ({ navigation }) => ({
-            title: `Vos notifications`,
-            headerTitle: () => <Header />,
-        }),
-    }
-});
+
 export default createAppContainer(
     createSwitchNavigator(
         {
@@ -30,25 +17,9 @@ export default createAppContainer(
             App: MainTabNavigator,
             AuthLoading: AuthLoadingScreen,
             Auth: AuthNavigator,
-            Notif: NotifNavigator,
         },
         {
             initialRouteName: 'AuthLoading',
         }
     )
 );
-
-class Header extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <View>
-                <Text>Mes notifications</Text>
-            </View>
-        );
-    }
-}
