@@ -118,6 +118,14 @@ class ApiConsumer {
       url: '/post/information',
     });
   }
+  async sendDonation(id) {
+    return await this._fetch({
+      method: 'post',
+      url: '/post/request/' + id,
+    });
+  }
 }
+
+
 
 export default ApiConsumer;
