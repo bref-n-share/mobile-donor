@@ -1,7 +1,5 @@
 import React from "react";
-import { View , Text, Button, StyleSheet, Image } from 'react-native';
-import NumericInput from 'react-native-numeric-input'
-
+import { View , Text, Button, StyleSheet, Image, Alert } from 'react-native';
 
 export default class Sites extends React.Component {
     constructor(props) {
@@ -10,9 +8,17 @@ export default class Sites extends React.Component {
             imgPath: "../../assets/images/heart.png",
             title: "myTitle",
             text: "my text bla bla",
+            id: "noId",
             isDemand: false,
             counter: 1,
         };
+    }
+
+    async sendDonation() {
+        let response = await global.ApiConsumer.sendDonation(this.props.id);
+        if (response.status===200) {
+            Alert.alert('Vous avez fait un don');
+        }
     }
 
 
@@ -20,22 +26,7 @@ export default class Sites extends React.Component {
         let demandView;
         if(this.props.isDemand==true) {
             demandView = (<View style={styles.demandView}>
-                <Button title={"Envoyer"}></Button>
-                <NumericInput
-                    initValue={1}
-                    value={this.props.counter}
-                    minValue={1}
-                    onChange={value => this.setState({counter: value})}
-                    totalWidth={150}
-                    totalHeight={25}
-                    iconSize={10}
-                    step={1}
-                    valueType='integer'
-                    rounded
-                    textColor='#07366d'
-                    iconStyle={{color: 'white'}}
-                    rightButtonBackgroundColor='#007AFF'
-                    leftButtonBackgroundColor='#969696'/>
+                <Button title={"Donner une unité"} onPress={() => this.sendDonation()}></Button>
             </View>)
         } else {
             demandView = (<View/>)
