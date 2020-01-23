@@ -17,7 +17,11 @@ class DrawerScreen extends Component {
   logout = () => async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
-  }
+  };
+
+  seeNotifs = () => async () => {
+    this.props.navigation.navigate('Notif');
+  };
 
   render () {
     return (
@@ -26,6 +30,9 @@ class DrawerScreen extends Component {
           <View style={styles.menuItem}>
             <Text style={styles.menuItemText} onPress={this.logout()}>
               Logout
+            </Text>
+            <Text style={styles.menuItemText} onPress={this.seeNotifs()}>
+              Notifications
             </Text>
           </View>
         </ScrollView>
@@ -45,6 +52,8 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     fontSize: 18,
+    marginBottom: 15,
+    marginTop: 15,
   },
 });
 

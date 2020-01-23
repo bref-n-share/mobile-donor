@@ -79,6 +79,12 @@ class ApiConsumer {
     });
   }
 
+  async getNotifs() {
+    return await this._fetch({
+      method: 'get',
+      url: '/notification'
+    })
+
   async loadFavoriteSites() {
     return  await this._fetch({
       method: 'get',
