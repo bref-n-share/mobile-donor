@@ -2,25 +2,12 @@ import React from "react";
 import { View , Text, Button, StyleSheet, Image, Alert } from 'react-native';
 
 export default class Sites extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            imgPath: "../../assets/images/heart.png",
-            title: "myTitle",
-            text: "my text bla bla",
-            id: "noId",
-            type: "information",
-            counter: 1,
-        };
-    }
-
     async sendDonation() {
         let response = await global.ApiConsumer.sendDonation(this.props.id);
         if (response.status===200) {
             Alert.alert('Vous avez fait un don');
         }
     }
-
 
     render() {
         let demandView;

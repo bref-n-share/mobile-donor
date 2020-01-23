@@ -8,7 +8,6 @@ import { siteUpdate } from '../../../actions/sites';
 class SiteElement extends React.Component {
     constructor() {
         super();
-        //TODO: Transformer les longitudes et latitudes en float (string --> float)
         this.state = {
             pressFunction:null,
         };
