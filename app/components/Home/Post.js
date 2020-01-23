@@ -40,9 +40,9 @@ export default class Sites extends React.Component {
                     <View>
                         <Text style={styles.titleView}>{this.props.title}</Text>
                         <Text style={styles.descView}>{this.props.text}</Text>
+                        {demandView}
                     </View>
                 </View>
-                {demandView}
             </View>
         );
     }
@@ -50,7 +50,6 @@ export default class Sites extends React.Component {
 
 const styles = StyleSheet.create({
     parentView: {
-        flex: 1,
         borderWidth: 0.3,
         borderColor: '#969696',
     },

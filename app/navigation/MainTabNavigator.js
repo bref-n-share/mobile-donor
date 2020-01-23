@@ -10,6 +10,8 @@ import HomeScreen from '../screens/HomeScreen';
 import FavorisScreen from '../screens/FavorisScreen';
 import DrawerScreen from '../screens/DrawerScreen';
 
+import NotifListComponent from "../components/Notifications/NotifListComponent";
+
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: { headerMode: 'none' },
@@ -70,7 +72,8 @@ bottomTabNavigator.path = '';
 
 const drawerNavigator = createDrawerNavigator(
     {
-        Home: bottomTabNavigator
+        Home: bottomTabNavigator,
+        Notif: NotifListComponent
     },
     {
         initialRouteName: 'Home',

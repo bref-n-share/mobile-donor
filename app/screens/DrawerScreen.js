@@ -19,6 +19,10 @@ class DrawerScreen extends Component {
     this.props.navigation.navigate('Auth');
   };
 
+  seeHome = () => async () => {
+    this.props.navigation.navigate('Home');
+  };
+
   seeNotifs = () => async () => {
     this.props.navigation.navigate('Notif');
   };
@@ -28,11 +32,20 @@ class DrawerScreen extends Component {
       <View style={styles.parentView}>
         <ScrollView>
           <View style={styles.menuItem}>
-            <Text style={styles.menuItemText} onPress={this.logout()}>
-              Logout
+            <Text style={styles.menuItemText} onPress={this.seeHome()}>
+              Home
             </Text>
+          </View>
+
+          <View style={styles.menuItem}>
             <Text style={styles.menuItemText} onPress={this.seeNotifs()}>
               Notifications
+            </Text>
+          </View>
+
+          <View style={styles.menuItem}>
+            <Text style={styles.menuItemText} onPress={this.logout()}>
+              Logout
             </Text>
           </View>
         </ScrollView>

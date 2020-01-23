@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {TextInput, View, StyleSheet, ScrollView, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import {connect} from 'react-redux';
 import NotifComponent from "./NotifComponent";
-
+import { withNavigation } from 'react-navigation';
 
 class NotifListComponent extends Component {
 
@@ -12,6 +12,13 @@ class NotifListComponent extends Component {
         this.state = {
             notifs: []
         }
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.loadNotifs();
+        });
     }
 
     async loadNotifs() {
@@ -32,4 +39,4 @@ class NotifListComponent extends Component {
 
 }
 
-export default connect()(NotifListComponent);
+export default withNavigation(connect()(NotifListComponent));
