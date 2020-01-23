@@ -84,6 +84,38 @@ class ApiConsumer {
       method: 'get',
       url: '/notification'
     })
+
+  async loadFavoriteSites() {
+    return  await this._fetch({
+      method: 'get',
+      url: '/structure/favorite',
+    });
+  }
+
+  async siteToggleFavorite({site, value}) {
+    let action = value ? 'add' : 'remove';
+
+    return await this._fetch({
+      method: 'post',
+      url: `/user/donor/favorite/${action}`,
+      data: {
+        id: site,
+      },
+    });
+  }
+
+  async loadDemands() {
+    return await this._fetch({
+      method: 'get',
+      url: '/post/request',
+    });
+  }
+
+  async loadInfos() {
+    return await this._fetch({
+      method: 'get',
+      url: '/post/information',
+    });
   }
 }
 

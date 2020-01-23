@@ -46,6 +46,7 @@ class ListView extends React.Component {
 
     render() {
         let sites = <Text>No sites to show</Text>;
+
         if (this.props.sites) {
             sites =
                 <ScrollView

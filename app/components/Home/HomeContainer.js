@@ -8,45 +8,27 @@ export default class HomeContainer extends React.Component{
     constructor() {
         super();
         this.state = {
-
-            infos: [
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 1",
-                    text: "info 1 text",
-                    isDemand:false,
-                    counter:0,
-                },
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 2",
-                    text: "info 2 text",
-                    isDemand:false,
-                    counter:0,
-                },
-            ],
-            demands: [
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "demande 1",
-                    text: "demande 1 text",
-                    isDemand:false,
-                    counter:0,
-                },
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "demande 2",
-                    text: "demande 2 text",
-                    isDemand:false,
-                    counter:0,
-                },
-            ],
+            demands: [],
+            infos: [],
             index: 0,
             routes: [
                 { key: 'first', title: 'Demandes' },
                 { key: 'second', title: 'Informations' },
             ],
         };
+        this.loadDemands();
+        this.loadInfos();
+    }
+
+    async loadDemands() {
+        let demands = await global.ApiConsumer.loadDemands();
+        this.setState({demands:demands.data});
+
+    }
+
+    async loadInfos() {
+        let infos = await global.ApiConsumer.loadInfos();
+        this.setState({infos:infos.data});
     }
 
     _handleIndexChange = index => this.setState({ index });
@@ -92,20 +74,20 @@ export default class HomeContainer extends React.Component{
     };
 
     render() {
-
+        let demands = this.state.demands;
         let DemandsRoute = () => (
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {this.state.demands.map((demand, idx) => <Post title={demand.title} text={demand.text} isDemand={true} key={idx}/>)}
+                {demands.map((demand, idx) => <Post title={demand.title} text={demand.description} isDemand={true} key={idx}/>)}
             </ScrollView>
         );
-
+        let infos = this.state.infos;
         let InfosRoute = () => (
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {this.state.infos.map((info, idx) => <Post title={info.title} text={info.text} isDemand={false} key={idx}/>)}
+                {infos.map((info, idx) => <Post title={info.title} text={info.description} isDemand={false} key={idx}/>)}
             </ScrollView>
         );
 

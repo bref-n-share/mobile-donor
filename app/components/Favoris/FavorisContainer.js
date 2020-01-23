@@ -1,39 +1,49 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView} from 'react-native';
-import Favoris from "./Favoris";
+import { StyleSheet, ScrollView, Text } from 'react-native';
+import SiteElement from '../SiteList/List/SiteElement';
+import { connect } from 'react-redux';
+import { sitesAll, sitesFavorite } from '../../actions/sites';
 
-export default class FavorisContainer extends React.Component{
-    constructor() {
-        super();
-        this.state = {
-            favoris: [
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 1",
-                    text: "info 1 text",
-                    isFavoris:true,
-                },
-                {
-                    image: "../../assets/images/icon.png",
-                    title: "info 2",
-                    text: "info 2 text",
-                    isFavoris:false,
-                },
-            ],
-        };
+class FavorisContainer extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.loadSites();
+    }
+
+    async loadSites() {
+        let response = await global.ApiConsumer.loadSites();
+        this.props.dispatch(sitesAll(response.data));
+
+        response = await global.ApiConsumer.loadFavoriteSites();
+        this.props.dispatch(sitesFavorite(response.data));
+    }
+
+    filteredSites() {
+        if (!this.props.sites) {
+            return null;
+        }
+
+        return this.props.sites.filter(site => site.isFavoris);
     }
 
     render() {
+        if (!this.props.sites) {
+            return <Text>No sites to show</Text>;
+        }
+
         return (
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentContainer}>
-                {this.state.favoris.map((fav, idx) => <Favoris title={fav.title} text={fav.text} isFavoris={fav.isFavoris} key={idx}/>)}
+            <ScrollView>
+                {this.filteredSites().map((site, idx) => <SiteElement site={site} key={idx} />)}
             </ScrollView>
         );
     }
 }
 
-const styles = StyleSheet.create({
+const mapStateToProps = (state, ownProps) => {
+    return {
+        sites: state.sitesReducer.sites,
+    }
+};
 
-});
+export default connect(mapStateToProps)(FavorisContainer);
