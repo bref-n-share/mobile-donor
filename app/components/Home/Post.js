@@ -9,7 +9,7 @@ export default class Sites extends React.Component {
             title: "myTitle",
             text: "my text bla bla",
             id: "noId",
-            isDemand: false,
+            type: "information",
             counter: 1,
         };
     }
@@ -24,7 +24,7 @@ export default class Sites extends React.Component {
 
     render() {
         let demandView;
-        if(this.props.isDemand==true) {
+        if(this.props.type==="request") {
             demandView = (<View style={styles.demandView}>
                 <Button title={"Donner une unité"} onPress={() => this.sendDonation()}></Button>
             </View>)
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     demandView: {
-        flexDirection: 'row-reverse'
+        flexDirection: 'row'
     },
     iconView: {
         margin: 10,

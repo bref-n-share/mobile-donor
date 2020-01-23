@@ -1,12 +1,18 @@
 import React from "react";
-import {View, Text, StyleSheet, Platform, Image} from "react-native";
+import {View, Text, StyleSheet, Platform, Image, ScrollView} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import TouchableWithoutFeedback from "react-native-web/dist/exports/TouchableWithoutFeedback";
+import SiteElement from "../List/SiteElement";
+import Post from "../../Home/Post";
 
 export class SiteInfo extends React.Component {
-    render() {
-        console.log(this.props);
+    toggleFavorite(parent){
+        let site = parent.props.site;
+        site.isFavoris = !site.isFavoris;
+        parent.setState({site:site})
+    }
 
+    render() {
         let favorisName = Platform.OS === 'ios' ? 'ios-star' : 'md-star';
         if (!this.props.site.isFavoris) {
             favorisName = Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline';
@@ -17,7 +23,13 @@ export class SiteInfo extends React.Component {
         if (this.props.site.phone) {
             phone = <Text style={styles.textBlack}>Tel: {this.props.site.phone}</Text>
         }
-
+        let parent = this;
+        console.log(this.props.site.posts);
+        let list = <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}>
+            {this.props.site.posts.map((post, idx) => <Post id={post.id} title={post.title} text={post.description} type={post.type} key={idx}/>)}
+        </ScrollView>;
         return (
             <View style={styles.parentView}>
                 <View style={styles.headerView}>
@@ -27,7 +39,7 @@ export class SiteInfo extends React.Component {
                         <Text style={styles.subHeader}>Ville: {this.props.site.city} - {this.props.site.postalCode}</Text>
                         <Text style={styles.subHeader}>{this.props.site.address}</Text>
                     </View>
-                    <TouchableWithoutFeedback onPress={this.toggleFavorite}>
+                    <TouchableWithoutFeedback onPress={() => this.toggleFavorite(parent)}>
                         <Ionicons name={favorisName}
                             size={26}
                             style={{marginBottom: -3}}
@@ -37,6 +49,7 @@ export class SiteInfo extends React.Component {
                 <Text style={styles.subHeader}>Description:</Text>
                 <Text style={styles.textBlue}>{this.props.site.description}</Text>
                 {phone}
+                {list}
             </View>
         );
     }

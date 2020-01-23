@@ -88,7 +88,7 @@ class HomeContainer extends React.Component{
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {demands.map((demand, idx) => <Post title={demand.title} text={demand.description} isDemand={true} id={demand.id} key={idx}/>)}
+                {demands.map((demand, idx) => <Post title={demand.title} text={demand.description} type={demand.type} id={demand.id} key={idx}/>)}
             </ScrollView>
         );
         let infos = this.state.infos;
@@ -96,7 +96,7 @@ class HomeContainer extends React.Component{
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentContainer}>
-                {infos.map((info, idx) => <Post title={info.title} text={info.description} isDemand={false} id={info.id} key={idx}/>)}
+                {infos.map((info, idx) => <Post title={info.title} text={info.description} type={info.type} id={info.id} key={idx}/>)}
             </ScrollView>
         );
 

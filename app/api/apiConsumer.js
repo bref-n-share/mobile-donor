@@ -75,7 +75,7 @@ class ApiConsumer {
   async loadSites() {
     return await this._fetch({
       method: 'get',
-      url: '/structure/site',
+      url: '/structure/site?level=full',
     });
   }
 
