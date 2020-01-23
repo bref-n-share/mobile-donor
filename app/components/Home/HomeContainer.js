@@ -3,8 +3,9 @@ import { StyleSheet, ScrollView, TouchableOpacity, View } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Animated from 'react-native-reanimated';
 import Post from "./Post";
+import { withNavigation } from 'react-navigation';
 
-export default class HomeContainer extends React.Component{
+class HomeContainer extends React.Component{
     constructor() {
         super();
         this.state = {
@@ -19,6 +20,14 @@ export default class HomeContainer extends React.Component{
         this.loadDemands();
         this.loadInfos();
     }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.loadDemands();
+            this.loadInfos();
+        });
+      }
 
     async loadDemands() {
         let demands = await global.ApiConsumer.loadDemands();
@@ -125,3 +134,5 @@ const styles = StyleSheet.create({
         padding: 1,
     },
 });
+
+export default withNavigation(HomeContainer);
