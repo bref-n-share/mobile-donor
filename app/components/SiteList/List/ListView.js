@@ -24,7 +24,7 @@ class ListView extends React.Component {
             return this.props.sites;
         }
 
-        return this.props.sites.filter(site => site.text.includes(this.state.searchTerms));
+        return this.props.sites.filter(site => site.name.includes(this.state.searchTerms));
     }
 
     FlatListItemSeparator = () => (<View style={{height: 0.5, width: '100%', backgroundColor: '#C8C8C8'}}/>);
