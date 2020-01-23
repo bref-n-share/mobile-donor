@@ -2,14 +2,22 @@ import React from "react";
 import {View, Text, StyleSheet, Platform, Image, ScrollView} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import TouchableWithoutFeedback from "react-native-web/dist/exports/TouchableWithoutFeedback";
-import SiteElement from "../List/SiteElement";
 import Post from "../../Home/Post";
+import { connect } from 'react-redux';
+import { siteUpdate } from '../../../actions/sites';
 
-export class SiteInfo extends React.Component {
-    toggleFavorite(parent){
-        let site = parent.props.site;
-        site.isFavoris = !site.isFavoris;
-        parent.setState({site:site})
+class SiteInfo extends React.Component {
+    async toggleFavorite() {
+        const response = await global.ApiConsumer.siteToggleFavorite({
+            site: this.props.site.id,
+            value: !this.props.site.isFavoris
+        });
+
+        let newSite = JSON.parse(JSON.stringify(this.props.site));
+        newSite.isFavoris = !newSite.isFavoris;
+        this.props.site.isFavoris = newSite.isFavoris;
+        this.props.dispatch(siteUpdate(newSite));
+        this.forceUpdate();
     }
 
     render() {
@@ -18,13 +26,11 @@ export class SiteInfo extends React.Component {
             favorisName = Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline';
         }
 
-
         let phone = null;
         if (this.props.site.phone) {
             phone = <Text style={styles.textBlack}>Tel: {this.props.site.phone}</Text>
         }
-        let parent = this;
-        console.log(this.props.site.posts);
+
         let list = <ScrollView
             style={styles.container}
             contentContainerStyle={styles.contentContainer}>
@@ -39,7 +45,7 @@ export class SiteInfo extends React.Component {
                         <Text style={styles.subHeader}>Ville: {this.props.site.city} - {this.props.site.postalCode}</Text>
                         <Text style={styles.subHeader}>{this.props.site.address}</Text>
                     </View>
-                    <TouchableWithoutFeedback onPress={() => this.toggleFavorite(parent)}>
+                    <TouchableWithoutFeedback onPress={() => this.toggleFavorite()}>
                         <Ionicons name={favorisName}
                             size={26}
                             style={{marginBottom: -3}}
@@ -91,3 +97,5 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 });
+
+export default connect()(SiteInfo);

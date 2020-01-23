@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
-import {SiteInfo} from "./SiteInfo/SiteInfo";
+import SiteInfo from "./SiteInfo/SiteInfo";
 import CustomMapView from "./Map/CustomMapView";
 import ListView from "./List/ListView";
 import FavorisContainer from '../Favoris/FavorisContainer';
