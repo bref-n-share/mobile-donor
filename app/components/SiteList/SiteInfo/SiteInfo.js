@@ -1,39 +1,42 @@
 import React from "react";
 import {View, Text, StyleSheet, Platform, Image} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
+import TouchableWithoutFeedback from "react-native-web/dist/exports/TouchableWithoutFeedback";
 
 export class SiteInfo extends React.Component {
     render() {
-        let favorisIcon;
-        if (this.props.site.isFavoris){
-            favorisIcon = (<Ionicons
-                name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'}
-                size={26}
-                style={{marginBottom: -3}}
-                color={'rgb(32,32,32)'}
-            />)
+        console.log(this.props);
+
+        let favorisName = Platform.OS === 'ios' ? 'ios-star' : 'md-star';
+        if (!this.props.site.isFavoris) {
+            favorisName = Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline';
         }
-        else {
-            favorisIcon = (<Ionicons
-                name={Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline'}
-                size={26}
-                style={{marginBottom: -3}}
-                color={'rgb(32,32,32)'}
-            />)
+
+
+        let phone = null;
+        if (this.props.site.phone) {
+            phone = <Text style={styles.textBlack}>Tel: {this.props.site.phone}</Text>
         }
+
         return (
             <View style={styles.parentView}>
                 <View style={styles.headerView}>
                     <Image style={styles.iconView} source={require("../../../assets/images/heart.png")} />
                     <View style={styles.headerTextView}>
                         <Text style={styles.header}>{this.props.site.name}</Text>
-                        <Text style={styles.subHeader}>Ville: {this.props.site.city}</Text>
+                        <Text style={styles.subHeader}>Ville: {this.props.site.city} - {this.props.site.postalCode}</Text>
+                        <Text style={styles.subHeader}>{this.props.site.address}</Text>
                     </View>
-                    {favorisIcon}
+                    <TouchableWithoutFeedback onPress={this.toggleFavorite}>
+                        <Ionicons name={favorisName}
+                            size={26}
+                            style={{marginBottom: -3}}
+                            color={'rgb(32,32,32)'} />
+                    </TouchableWithoutFeedback>
                 </View>
                 <Text style={styles.subHeader}>Description:</Text>
                 <Text style={styles.textBlue}>{this.props.site.description}</Text>
-                <Text style={styles.textBlack}>Tel: {this.props.site.tel}</Text>
+                {phone}
             </View>
         );
     }
